@@ -1,4 +1,4 @@
-# PyGradient - API server for AirGradient
+# PyGradient - API server for AirGradient devices
 
 PyGradient runs a local HTTP server for accepting data from AirGradient sensors running stock firmware.
 
@@ -10,9 +10,16 @@ PyGradient runs a local HTTP server for accepting data from AirGradient sensors 
 
 *Device data is matched against the schemas defined in [pygradient/models.py](./pygradient/models.py).*
 
-## Preparation
+## Installation
+PyGradient can be installed directly from GitHub using pip:
 
-AirGradient devices post data to a hardcoded HTTP endpoint (`hw.airgradient.com`), this URL needs to be modified to have the sensor talk to a local endpoint:
+`pip install git+https://github.com/just-oblivious/pygradient.git`
+
+Python 3.11 or newer is required.
+
+## Device preparation
+
+AirGradient devices post data to a hardcoded HTTP endpoint (`hw.airgradient.com`), this URL needs to be modified to make the sensor talk to a local endpoint:
 
 1. Setup a development environment as per  [AirGradients instructions](https://www.airgradient.com/blog/install-arduino-c3-mini/);
 1. Open the Arduino code for your AirGradient device;
