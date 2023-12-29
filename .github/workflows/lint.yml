@@ -1,0 +1,21 @@
+name: Linters
+on:
+    pull_request:
+        branches:
+            - main
+    push:
+        branches:
+            - main
+
+jobs:
+    linters:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-python@v2
+            - run: pip install poetry
+            - run: poetry install .
+            - run: poetry run isort --check --diff .
+            - run: poetry run flake8 .
+            - run: poetry run black --check --color --diff .
+            - run: poetry run mypy .
