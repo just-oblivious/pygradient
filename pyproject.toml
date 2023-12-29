@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "pygradient"
+version = "0.1.0"
+description = "Local API server for AirGradient devices"
+license = "MIT"
+authors = ["Don <info@lx0.nl>"]
+readme = "README.md"
+packages = [
+    {include = "pygradient"},
+    {include = "pygradient/py.typed"},
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiohttp = "^3.9.1"
+pydantic = "^2.5.3"
+
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.lint.dependencies]
+isort = "^5.13.2"
+flake8 = "^6.1.0"
+black = "^23.12.1"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 120
+
+[tool.mypy]
+strict = true
