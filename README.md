@@ -27,14 +27,13 @@ AirGradient devices post data to a hardcoded HTTP endpoint (`hw.airgradient.com`
 1. Flash the firmware to your device;
 1. Run `python3 -m pygradient` and watch the data arrive. The default port for PyGradient is `8088`.
 
-## Usage example
-
+## Basic example
 ```python
 from pygradient import SensorAPI, SensorData
 
 
 # This callback function is called upon receiving a valid measurement.
-async def sensor_callback(sensor_data: SensorData) -> None:
+def sensor_callback(sensor_data: SensorData) -> None:
     """This is where you'd do something useful with the readings."""
     print(f"Sensor ID: {sensor_data.id} ({sensor_data.ip})")
     for key, value in sensor_data.readings:
@@ -44,7 +43,7 @@ async def sensor_callback(sensor_data: SensorData) -> None:
 api = SensorAPI()
 
 # Register the callback function
-api.register_async_callback(sensor_callback)
+api.register_callback(sensor_callback)
 
 # Run the API server
 api.serve("0.0.0.0", 8088)
@@ -66,4 +65,40 @@ sensor_model: ONE-V9
 rco2: 796
 tvoc_index: 81
 nox_index: 1
+```
+
+## Async example
+
+```python
+import asyncio
+
+from pygradient import SensorAPI, SensorData
+
+
+# This callback function is called upon receiving a valid measurement.
+async def sensor_callback(sensor_data: SensorData) -> None:
+    """This is where you'd do something useful with the readings."""
+    print(f"Sensor ID: {sensor_data.id} ({sensor_data.ip})")
+    for key, value in sensor_data.readings:
+        print(f"{key}: {value}")
+
+
+api = SensorAPI()
+
+api.register_async_callback(sensor_callback)
+
+
+async def main() -> None:
+    # Start serving the API endpoint
+    await api.async_serve()
+
+    # Do something else
+    await asyncio.sleep(30)
+
+    # Stop serving the API endpoint
+    await api.async_teardown()
+
+
+asyncio.run(main())
+
 ```

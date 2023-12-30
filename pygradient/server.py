@@ -21,6 +21,7 @@ class SensorAPI(object):
         self.app.add_routes(
             [web.post("/sensors/airgradient:{sensor_id:[a-f0-9]{12}}/measures", self.process_sensor_reading)]
         )
+        self.runner = web.AppRunner(self.app)
 
     def register_callback(self, f: Callback) -> None:
         """Register a callback."""
@@ -41,6 +42,16 @@ class SensorAPI(object):
     def serve(self, host: str = "0.0.0.0", port: int = 8088) -> None:
         """Serve the HTTP endpoint."""
         web.run_app(self.app, host=host, port=port)
+
+    async def async_serve(self, host: str = "0.0.0.0", port: int = 8088) -> None:
+        """Serve the HTTP endpoint async."""
+        await self.runner.setup()
+        site = web.TCPSite(self.runner, host, port)
+        await site.start()
+
+    async def async_teardown(self) -> None:
+        """Stop serving the endpoint."""
+        await self.runner.cleanup()
 
     async def process_sensor_reading(self, request: web.Request) -> web.Response:
         """Process readings posted by the sensor."""
