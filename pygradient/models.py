@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, StrictInt, StrictStr, StrictFloat, validator
+from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr, validator
 
 
 class AG(BaseModel):
