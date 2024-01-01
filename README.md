@@ -61,7 +61,6 @@ atmp: 22.25
 rhum: 43
 wifi: -38
 boot: 1302
-sensor_model: ONE-V9
 rco2: 796
 tvoc_index: 81
 nox_index: 1
