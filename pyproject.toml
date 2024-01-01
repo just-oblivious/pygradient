@@ -12,8 +12,8 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
-aiohttp = "^3.9.1"
-pydantic = "^2.5.3"
+aiohttp = ">= 3.9"
+pydantic = "^1"
 
 [tool.poetry.group.lint]
 optional = true
